@@ -1,0 +1,73 @@
+<div class="p-mt-3">
+  <p-card>
+    <p-header>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Add Family ID"
+        class="p-button-raised p-button-text p-ml-3 p-mt-3"
+        icon="pi pi-plus"
+        routerLink="/family-id/add-family-id"
+      ></button>
+    </p-header>
+    <p-table
+      [value]="familyIDs"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[5, 10, 25]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="fullName">
+            Family Full Name <p-sortIcon field="fullName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="familyid">
+            Family ID <p-sortIcon field="familyid"></p-sortIcon>
+          </th>
+          <th>Is Active</th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-familyid>
+        <tr>
+          <td>{{ familyid.householdFullName }}</td>
+          <td>{{ familyid.familyID }}</td>
+          <td>
+            <p-checkbox
+              [binary]="true"
+              [(ngModel)]="familyid.isActive"
+              [disabled]="true"
+            ></p-checkbox>
+          </td>
+          <td>
+            <button
+              pButton
+              type="button"
+              label="Delete"
+              class="p-button-raised p-button-info p-button-text"
+              icon="pi pi-info-circle"
+              styleClass="p-button-sm"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button
+          type="button"
+          icon="pi pi-plus"
+          styleClass="p-button-text"
+        ></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button
+          type="button"
+          icon="pi pi-cloud"
+          styleClass="p-button-text"
+        ></p-button>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

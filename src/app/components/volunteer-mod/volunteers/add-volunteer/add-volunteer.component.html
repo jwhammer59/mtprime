@@ -1,0 +1,256 @@
+<app-header [title]="headerTitle"></app-header>
+<p-card styleClass="p-card-shadow">
+  <form
+    [formGroup]="volunteerForm"
+    (ngSubmit)="onSubmit(volunteerForm)"
+    novalidate
+  >
+    <p-header class="p-text-center"><h4>Add Volunteer Form</h4></p-header>
+    <p-accordion [multiple]="true" *ngIf="!isLoading">
+      <p-accordionTab header="Personal Info">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-4">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+              <input
+                formControlName="firstName"
+                id="firstname"
+                type="text"
+                pInputText
+                placeholder="First Name"
+              />
+            </div>
+          </div>
+          <div class="p-field p-col-12 p-md-4">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+              <input
+                formControlName="lastName"
+                id="lastname"
+                type="text"
+                pInputText
+                placeholder="Last Name"
+              />
+            </div>
+          </div>
+          <div class="p-field p-col-12 p-md-4">
+            <!-- <select formControlName="familyID">
+              <option>Select Family ID</option>
+              <option
+                *ngFor="let familyId of allFamilyIDs$ | async"
+                [value]="familyId.familyID"
+              >
+                {{ familyId.familyID }}
+              </option>
+            </select> -->
+
+            <p-dropdown
+              [options]="fData"
+              formControlName="familyID"
+              optionLabel="cheese"
+            >
+            </p-dropdown>
+
+            <!-- <input
+                formControlName="familyID"
+                id="familyid"
+                type="text"
+                pInputText
+                placeholder="Family ID"
+              /> -->
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"
+                ><i class="pi pi-inbox"></i
+              ></span>
+              <input
+                formControlName="email"
+                id="vEmail"
+                type="text"
+                pInputText
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"
+                ><i class="pi pi-mobile"></i
+              ></span>
+              <input
+                formControlName="phone"
+                id="vPhone"
+                type="text"
+                pInputText
+                placeholder="Phone"
+              />
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="Address">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
+            <label for="vAddress1">Address 1</label>
+            <input
+              formControlName="address1"
+              id="vAddress1"
+              type="text"
+              pInputText
+            />
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="vAddress2">Address 2</label>
+            <input
+              formControlName="address2"
+              id="vAddress2"
+              type="text"
+              pInputText
+            />
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label for="vCity">City</label>
+            <input formControlName="city" id="vCity" type="text" pInputText />
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <label for="vState">State</label>
+            <input formControlName="state" id="vState" type="text" pInputText />
+          </div>
+          <div class="p-field p-col-12 p-md-3">
+            <label for="vZip">Zip</label>
+            <input formControlName="zipcode" id="vZip" type="text" pInputText />
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="Available Event Types">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              (onChange)="handleEventTimeCheckbox('Saturday')"
+              inputId="satSwitch"
+            ></p-inputSwitch>
+            <label for="satSwitch">Saturday</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              (onChange)="handleEventTimeCheckbox('Sunday-Early')"
+              inputId="sunEarlySwitch"
+            ></p-inputSwitch>
+            <label for="sunEarlySwitch">Sunday-Early</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              (onChange)="handleEventTimeCheckbox('Sunday-Late')"
+              inputId="sunLateSwitch"
+            ></p-inputSwitch>
+            <label for="sunLateSwitch">Sunday-Late</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              (onChange)="handleEventTimeCheckbox('Weekday')"
+              inputId="weekSwitch"
+            ></p-inputSwitch>
+            <label for="weekSwitch">Weekday</label>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="Ministries">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="lectorSwitch"
+              formControlName="isLector"
+            ></p-inputSwitch>
+            <label for="lectorSwitch">Lector</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="emohcSwitch"
+              formControlName="isEMoHC"
+            ></p-inputSwitch>
+            <label for="emohcSwitch">EMoHC</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="cantorSwitch"
+              formControlName="isCantor"
+            ></p-inputSwitch>
+            <label for="cantorSwitch">Cantor</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="usherSwitch"
+              formControlName="isUsher"
+            ></p-inputSwitch>
+            <label for="usherSwitch">Usher</label>
+          </div>
+        </div>
+
+        <div class="p-grid">
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="serverSwitch"
+              formControlName="isServer"
+            ></p-inputSwitch>
+            <label for="serverSwitch">Server</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="giftsSwitch"
+              formControlName="isGifts"
+            ></p-inputSwitch>
+            <label for="giftsSwitch">Gifts</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="childGiftSwitch"
+              formControlName="isGiftsChild"
+            ></p-inputSwitch>
+            <label for="childGiftSwitch">Child Gifts</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="massCordSwitch"
+              formControlName="isMassCoord"
+            ></p-inputSwitch>
+            <label for="massCordSwitch">Mass Coordinator</label>
+          </div>
+        </div>
+
+        <div class="p-grid">
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="rosarySwitch"
+              formControlName="isRosary"
+            ></p-inputSwitch>
+            <label for="rosarySwitch">Rosary</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="techSwitch"
+              formControlName="isTech"
+            ></p-inputSwitch>
+            <label for="techSwitch">Technology</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox">
+            <p-inputSwitch
+              inputId="otherSwitch"
+              formControlName="isOther"
+            ></p-inputSwitch>
+            <label for="otherSwitch">Other</label>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 p-field-checkbox"></div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+    <ng-template pTemplate="footer">
+      <p-button label="Save" icon="pi pi-check"></p-button>
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        styleClass="p-button-secondary"
+      ></p-button>
+    </ng-template>
+  </form>
+</p-card>

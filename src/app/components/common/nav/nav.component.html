@@ -1,0 +1,30 @@
+<div class="p-shadow-8">
+  <p-menubar [model]="items">
+    <ng-template pTemplate="start">
+      <h3>MTrakr</h3>
+    </ng-template>
+    <ng-template pTemplate="end">
+      <button
+        pButton
+        type="button"
+        label="Register"
+        icon="pi pi-pencil"
+        class="p-button-text"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="LogIn"
+        icon="pi pi-sign-in"
+        class="p-button-text"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="LogOut"
+        icon="pi pi-sign-out"
+        class="p-button-text"
+      ></button>
+    </ng-template>
+  </p-menubar>
+</div>

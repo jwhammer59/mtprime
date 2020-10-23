@@ -1,0 +1,85 @@
+<div class="p-mt-3">
+  <p-card>
+    <p-header>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Add Volunteer"
+        class="p-button-raised p-button-text p-ml-3 p-mt-3"
+        icon="pi pi-plus"
+        routerLink="/volunteers/add-volunteer"
+      ></button>
+    </p-header>
+    <p-table
+      [value]="volunteers"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[5, 10, 25]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="firstName">
+            First Name <p-sortIcon field="firstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="lastName">
+            Last Name <p-sortIcon field="lastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="email">
+            Email <p-sortIcon field="email"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone">
+            Phone <p-sortIcon field="phone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="familyID">
+            Family ID <p-sortIcon field="familyID"></p-sortIcon>
+          </th>
+          <th>Volunteer Detail</th>
+          <th>Is Available</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-volunteer>
+        <tr>
+          <td>{{ volunteer.firstName }}</td>
+          <td>{{ volunteer.lastName }}</td>
+          <td>{{ volunteer.email }}</td>
+          <td>{{ volunteer.phone | phone }}</td>
+          <td>{{ volunteer.familyID }}</td>
+          <td>
+            <button
+              pButton
+              type="button"
+              label="Details"
+              class="p-button-raised p-button-info p-button-text"
+              icon="pi pi-info-circle"
+              styleClass="p-button-sm"
+            ></button>
+          </td>
+          <td>
+            <p-checkbox
+              [binary]="true"
+              [(ngModel)]="volunteer.isAvailable"
+              [disabled]="true"
+            ></p-checkbox>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button
+          type="button"
+          icon="pi pi-plus"
+          styleClass="p-button-text"
+        ></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button
+          type="button"
+          icon="pi pi-cloud"
+          styleClass="p-button-text"
+        ></p-button>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
