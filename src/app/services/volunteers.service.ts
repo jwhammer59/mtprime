@@ -9,7 +9,7 @@ import { firestore } from 'firebase/app';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Volunteer } from '../models/Volunteer';
+import { Volunteer } from '../models/volunteer';
 
 @Injectable({
   providedIn: 'root',

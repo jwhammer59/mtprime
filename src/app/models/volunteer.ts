@@ -25,4 +25,8 @@ export class Volunteer {
   isServer: boolean;
   isTech: boolean;
   isUsher: boolean;
+  isSaturday: boolean;
+  isSundayEarly: boolean;
+  isSundayLate: boolean;
+  isWeekday: boolean;
 }

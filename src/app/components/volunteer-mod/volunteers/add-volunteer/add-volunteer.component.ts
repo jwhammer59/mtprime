@@ -21,29 +21,21 @@ import { map } from 'rxjs/operators';
 export class AddVolunteerComponent implements OnInit {
   headerTitle = 'Add Volunteer Page';
 
-  saturdayChecked: boolean = false;
-  sundayEarlyChecked: boolean = false;
-  sundayLateChecked: boolean = false;
-  weekdayChecked: boolean = false;
-
   onlyFamilyIDs$: Observable<any>;
 
-  familyID: any;
+  allFamilyID: any;
   allFamilyIDs$: Observable<FamilyID[]>;
-
-  isLoading: boolean;
 
   nameId: FamilyID[] = [];
 
   volunteerForm: FormGroup;
 
-  fData = [
-    { cheese: 'Hammer1', value: 'Hammer1' },
-    { cheese: 'Hammer2', value: 'Hammer2' },
-    { cheese: 'Hammer3', value: 'Hammer3' },
-    { cheese: 'Hammer4', value: 'Hammer4' },
-    { cheese: 'Hammer5', value: 'Hammer5' },
-    { cheese: 'Hammer6', value: 'Hammer6' },
+  testArray = [
+    { label: 'Hammer1', value: 'h1', id: '1' },
+    { label: 'Hammer2', value: 'h2', id: '2' },
+    { label: 'Hammer3', value: 'h3', id: '3' },
+    { label: 'Hammer4', value: 'h4', id: '4' },
+    { label: 'Hammer5', value: 'h5', id: '5' },
   ];
 
   constructor(
@@ -78,59 +70,30 @@ export class AddVolunteerComponent implements OnInit {
       isUsher: [false, Validators.required],
       isOther: [false, Validators.required],
       isMassCoord: [false, Validators.required],
-      isSaturday: false,
-      isSundayEarly: false,
-      isSundayLate: false,
-      isWeekday: false,
+      isSaturday: [false, Validators.required],
+      isSundayEarly: [false, Validators.required],
+      isSundayLate: [false, Validators.required],
+      isWeekday: [false, Validators.required],
     });
   }
 
   ngOnInit(): void {
-    // Get All Family ID's
-
-    this.checkArray();
-    this.loadFamilyIDs();
-  }
-
-  checkArray() {
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-      console.log(this.familyID);
-      console.log(this.nameId);
-    }, 2000);
-  }
-
-  loadFamilyIDs() {
     this.allFamilyIDs$ = this.familyIdsService.getFamilyIDs();
 
     this.onlyFamilyIDs$ = this.allFamilyIDs$.pipe(
       map((familyIds) => {
-        this.familyID = familyIds;
+        this.allFamilyID = familyIds;
       })
     );
 
-    this.onlyFamilyIDs$.subscribe((nameId: FamilyID[]) => {
-      this.nameId = nameId;
+    this.onlyFamilyIDs$.subscribe((nameIds: FamilyID[]) => {
+      this.nameId = nameIds;
+      console.log(nameIds);
     });
   }
 
-  handleEventTimeCheckbox(time: string) {
-    console.log(time);
-    if (time === 'Saturday') {
-      this.saturdayChecked = !this.saturdayChecked;
-    } else if (time === 'Sunday-Early') {
-      this.sundayEarlyChecked = !this.sundayEarlyChecked;
-    } else if (time === 'Sunday-Late') {
-      this.sundayLateChecked = !this.sundayLateChecked;
-    } else {
-      this.weekdayChecked = !this.weekdayChecked;
-    }
-    this.setEventStatus();
-  }
-
-  setEventStatus() {
-    console.log('Set Event Status Method');
+  handleFamilyID(e) {
+    console.log(e.value.familyID);
   }
 
   onSubmit({ value, valid }: { value: Volunteer; valid: boolean }) {
